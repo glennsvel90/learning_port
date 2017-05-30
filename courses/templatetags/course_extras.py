@@ -1,4 +1,6 @@
 from django import template
+from django.utils.safestring import mark_safe
+import markdown2
 
 from courses.models import Course
 
@@ -14,3 +16,15 @@ def nav_courses_list():
     '''show a dictionary of the courses to seve as navigation pane '''
     courses = Course.objects.all()
     return {'courses': courses }
+
+@register.filter('time_estimate')
+def time_estimate(word_count):
+    '''estimates the time it takes to complete a course based on word count'''
+    minutes = round(word_count/20)
+    return minutes
+
+@register.filter('markdown_to_html')
+def markdown_to_html(markdown_text):
+    '''converts markdown text to html'''
+    html_body = markdown2.markdown(markdown_text)
+    return mark_safe(html_body)
