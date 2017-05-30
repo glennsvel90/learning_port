@@ -7,6 +7,8 @@
     <h2><a href="{% url 'courses:detail' pk=course.pk%}">{{ course.title }}</a></h2>
     {{ course.description }}
 
+    
+
     <section>
         {% for step in course.step_set.all %}
             <h3>
