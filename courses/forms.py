@@ -15,7 +15,7 @@ class QuizForm(forms.Modelform):
 class TrueFalseQuestionForm(forms.Modelform):
     class Meta:
         model = models.TrueFalseQuestion
-        fields = ['order', 'prompt',]
+        fields = ['order', 'prompt','correct']
         #put correct soon as new feature
 
 class MultipleChoiceQuestionForm(forms.Modelform):
