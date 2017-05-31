@@ -8,21 +8,22 @@
 
 
     <article>
-        <h2><a href="{% url 'courses:detail' pk=course.pk%}">{{ course.title }}</a></h2>
-        {{ course.description|markdown_to_html }}
+        <h1 class="">{{ course.title }}</h1>
+        <div class="callout secondary">
+            {{ course.description|markdown_to_html }}
+        </div>
 
-        <p>
-          These are {{ course.step_set.count|apnumber }} step{{ course.step_set.count|pluralize }} in this course: {{ course.step_set.all|join:", " }}
-        </p>
-
-        <section>
-            {% for step in course.step_set.all %}
-                <h3>
-                  <a href="{% url 'courses:step' course_pk=step.course.pk step_pk=step.pk%}">{{ step.title }}</a>
-                </h3>
-                {{ step.description }}
+        <dl>
+            {% for step_order in steps_order %}
+                <dt>
+                  
+                    <a href="{{ step_order.get_absolute_url }}">{{ step_order.title }}</a>
+                </dt>
+                <dd>
+                    {{ step_order.description|markdown_to_html }}
+                </dd>
             {% endfor %}
-        </section>
+        </dl>
     </article>
 </div>
 {% endblock %}
