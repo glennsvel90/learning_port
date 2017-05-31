@@ -59,3 +59,22 @@ class Question(models.Model):
 
     def __str__(self):
         return self.prompt
+
+class Answer(models.Model):
+    question = models.ForeignKey(Question)
+    text = models.CharField(max_length=255)
+    order = models.IntegerField(default=0)
+    correct = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['order',]
+
+    def __str__(self):
+        return self.text
+
+class MultipleChoiceQuestion(Question):
+    shuffle_answers = models.BooleanField(default=False)
+    correct = models.BooleanField(default=False)
+
+class TrueFalseQuestion(Question):
+    correct = models.BooleanField(default=False)
