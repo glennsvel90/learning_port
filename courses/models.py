@@ -74,7 +74,7 @@ class Answer(models.Model):
 
 class MultipleChoiceQuestion(Question):
     shuffle_answers = models.BooleanField(default=False)
-    correct = models.BooleanField(default=False)
+
 
 class TrueFalseQuestion(Question):
     correct = models.BooleanField(default=False)

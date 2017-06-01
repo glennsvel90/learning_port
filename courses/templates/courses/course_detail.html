@@ -3,7 +3,7 @@
 
 {% block title %}{{ course.title }}{% endblock %}
 
-{% block content %}
+{% block content %}jj
 <div class="row">
 
 
@@ -16,7 +16,7 @@
         <dl>
             {% for step_order in steps_order %}
                 <dt>
-                  
+
                     <a href="{{ step_order.get_absolute_url }}">{{ step_order.title }}</a>
                 </dt>
                 <dd>
