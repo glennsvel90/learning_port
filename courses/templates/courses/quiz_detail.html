@@ -1,0 +1,20 @@
+{% extends "courses/layout.html" %}
+{% load course_extras %}
+
+{% block title %}{{ step.title }} | {{ step.course.title }} {{ block.super }}{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'courses:detail' pk=step.course.pk %}">{{ step.course.title }}</a></li>
+{% endblock %}
+
+{% block content %}
+    <div class="row columns">
+        <article>
+            {{ block.super }}
+            <h1>{{ step.title }}</h1>
+        </article>
+        {% if user.is_authenticated %}
+        <a href="{% url 'courses:quiz_edit' course_pk=step.course.pk quiz_pk=step.pk %}" class="button">Edit Quiz</a>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -27,6 +27,20 @@
                 </ul>
             </section>
         </nav>
+        {% if messages %}
+            <div class="row">
+                <div class="small-6 small-centered columns">
+                    {% for message in messages %}
+                        <div class="callout {{ message.tags }}" data-closable>
+                            {{ message }}
+                            <button type="button" class="close-button" aria-label="Dismiss message">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
         {% block content %}{% endblock %}
         <footer class="row columns">
             <hr/>

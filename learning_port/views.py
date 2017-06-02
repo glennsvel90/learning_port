@@ -12,12 +12,14 @@ def hello_world(request):
 
 def suggestion_view(request):
     form = forms.SuggestionForm()
-    if request.method == "POST":
-        form = form.SuggestionForm(request.POST)
+    if request.method == 'POST':
+        form = forms.SuggestionForm(request.POST)
         if form.is_valid():
             send_mail(
-                'suggestion from {name} <{email}> \nto Glenn Velupillai <glennselwynvel@gmail.com>'.format(**form.cleaned_data),
+                'suggestion from {}'.format(form.cleaned_data['name']),
                 form.cleaned_data['suggestion'],
+                '{name} <{email}>'.format(**form.cleaned_data),
+                ['glennselwynvel@gmail.com']              
             )
             messages.add_message(request, messages.SUCCESS, 'Thanks for your suggestion!')
             return HttpResponseRedirect(reverse('suggestion_view'))

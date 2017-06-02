@@ -40,10 +40,10 @@ def quiz_detail(request, course_pk, step_pk):
 def quiz_create(request, course_pk):
     course = get_object_or_404(models.Course, pk=course_pk)
 #    form = forms.Quizform()
-    quiz = forms.Quizform()
+    quiz = forms.QuizForm()
     if request.method == "POST":
 #        form = forms.Quizform(request.POST)
-        quiz = forms.Quizform(request.POST)
+        quiz = forms.QuizForm(request.POST)
         if quiz.is_valid():
 #            quiz = form.save(commit=False)
             quiz = quiz.save(commit=False)
@@ -53,4 +53,12 @@ def quiz_create(request, course_pk):
             return HttpResponseRedirect(quiz.get_absolute_url())
     return render(request,'courses/quiz_form.html', {
 #       'form':form}
-        'quiz':quiz})
+        'quiz':quiz,
+        'course':course})
+
+@login_required
+def quiz_edit(request, course_pk, quiz_pk):
+    quiz = get_object_or_404(models.Quiz, pk=quiz_pk, course_id=course_pk)
+    form = forms.QuizForm(intance=quiz)
+
+    return render(request, 'courses/quiz_form.html', {'form': form, 'course':quiz.course})
