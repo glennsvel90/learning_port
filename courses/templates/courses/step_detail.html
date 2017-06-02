@@ -1,19 +1,35 @@
-{% extends "layout.html" %}
-
+{% extends "courses/layout.html" %}
 {% load course_extras %}
-{% block title %}{{ step.title }} - {{ step.course.title }}{% endblock %}
+
+{% block title %}{{ step.title }} | {{ step.course.title }} {{ block.super }}{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'courses:detail' pk=step.course.pk %}">{{ step.course.title }}</a></li>
+{% endblock %}
 
 {% block content %}
-<div class="row">
+    <div class="row columns">
         <article>
-        <h2>
-          <a href="{% url 'courses:detail' pk=step.course.pk %}">{{ step.course.title }}</a>
-        </h2>
-        <h3>{{ step.title }}</h3>
+            {{ block.super }}
+            <h1>{{ step.title }}</h1>
+            <ul class="no-bullet">
+                {% for question in step.question_set.all %}
+                <li>
+                    <h2>{{ question.prompt }}</h2>
+                    {% for answer in question.answer_set.all %}
+                        <div class="callout {% if answer.correct %}success{% endif %}">{{ answer.text }}</div>
+                    {% endfor %}
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'courses:edit_question' question_pk=question.pk quiz_pk=step.pk %}" class="button">Edit</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </article>
+        {% if user.is_authenticated %}
+        <hr>
+        <a href="{% url 'courses:quiz_edit' course_pk=step.course.pk quiz_pk=step.pk %}" class="button">Edit</a>
 
-        {% with con=step.content %}
-            {{ con|linebreaks|markdown_to_html }} Content: {{ con|wordcount }} words. Estimated time to complete: {{ con|wordcount|time_estimate }} minute{{ con|wordcount|time_estimate|pluralize }}.
-        {% endwith %}
-    </article>
-</div>
+        {% endif %}
+    </div>
 {% endblock %}
