@@ -1,6 +1,6 @@
 {% extends "courses/layout.html" %}
-{% load static from staticfiles %}
-{% block title %}Available Courses{% endblock %}
+
+{% block title %}All{% endblock %}
 
 {% block content %}
     <div class="row columns">
@@ -12,15 +12,7 @@
                 <div class="callout">
                     <h5><a href="{% url 'courses:detail' pk=course.pk %}">{{ course.title }}</a></h5>
                     <div class="card-copy">
-                        {% if course.description|wordcount <= 5 %}
-                            {{ course.description }}
-                        {% else %}
-                            {{ course.description|truncatewords:5 }}
-                            <a href="{% url 'courses:detail' pk=course.pk %}">Read more</a>
-                        {% endif %}
-                        <div>
-                          Created on: {{ course.created_at|date:"F j, Y"}}
-                        </div>
+                        {{ course.description }}
                     </div>
                 </div>
             </div>
@@ -30,8 +22,5 @@
                 <div class="row">
             {% endif %}
         {% endfor %}
-        <div>
-          Have questions? Contact Us! {{ email|urlize }}
-        </div>
     </div>
 {% endblock %}

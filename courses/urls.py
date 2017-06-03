@@ -7,9 +7,12 @@ urlpatterns = [
     url(r'(?P<course_pk>\d+)/t(?P<step_pk>\d+)/$', views.text_detail,
         name='text'),
     url(r'(?P<course_pk>\d+)/q(?P<step_pk>\d+)/$', views.quiz_detail,
-            name='quiz'),
-    url(r'(?P<course_pk>\d+)/quiz_edit/(?P<quiz_pk>\d+)/$', views.quiz_edit,
-            name='quiz_edit'),
+        name='quiz'),
+    url(r'(?P<course_pk>\d+)/create_quiz/$', views.quiz_create,
+        name='create_quiz'),
+    url(r'(?P<course_pk>\d+)/edit_quiz/(?P<quiz_pk>\d+)/$', views.quiz_edit,
+        name='quiz_edit'),
+    url(r'(?P<quiz_pk>\d+)/create_question/(?P<question_type>mc|tf)/$',
+        views.create_question, name='create_question'),
     url(r'(?P<pk>\d+)/$', views.course_detail, name='detail'),
-    url(r'(?P<course_pk>\d+)/quiz_create/$', views.quiz_create, name='quiz_create')
 ]
