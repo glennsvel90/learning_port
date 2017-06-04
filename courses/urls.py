@@ -14,5 +14,7 @@ urlpatterns = [
         name='quiz_edit'),
     url(r'(?P<quiz_pk>\d+)/create_question/(?P<question_type>mc|tf)/$',
         views.create_question, name='create_question'),
+    url(r'(?P<quiz_pk>\d+)/edit_question/(?P<question_pk>\d+)/$',
+        views.question_edit, name='question_edit'),
     url(r'(?P<pk>\d+)/$', views.course_detail, name='detail'),
 ]

@@ -19,9 +19,9 @@ def course_detail(request, pk):
     steps = sorted(chain(course.text_set.all(), course.quiz_set.all()),
                    key=lambda step: step.order)
     return render(request, 'courses/course_detail.html', {
-            'course': course,
-            'steps': steps
-        })
+        'course': course,
+        'steps': steps
+    })
 
 
 def text_detail(request, course_pk, step_pk):
@@ -85,6 +85,71 @@ def create_question(request, quiz_pk, question_type):
             return HttpResponseRedirect(quiz.get_absolute_url())
 
     return render(request, 'courses/question_form.html', {
-            'quiz': quiz,
-            'form': form
+        'quiz': quiz,
+        'form': form
     })
+
+@login_required
+def question_edit(request, quiz_pk, question_pk):
+    question = get_object_or_404(models.Question, pk=question_pk, quiz_id=quiz_pk)
+
+    if hasattr(question, 'truefalsequestion'):
+        form_class = forms.TrueFalseQuestionForm
+    else:
+        form_class = forms.MultipleChoiceQuestionForm
+
+    form = form_class(instance=question)
+
+    if request.method == 'POST':
+        form = form_class(instance=question, data=request.POST)
+        if form.is_valid:
+            form.save()
+            messages.success(request, "Updated Question")
+            return HttpResponseRedirect(question.quiz.get_absolute_url())
+
+    return render(request, 'courses/question_form.html', {
+        'quiz':question.quiz,
+        'form': form,
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
