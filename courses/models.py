@@ -14,7 +14,6 @@ class Course(models.Model):
 class Step(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-
     order = models.IntegerField(default=0)
     course = models.ForeignKey(Course)
 
@@ -25,26 +24,29 @@ class Step(models.Model):
     def __str__(self):
         return self.title
 
+
 class Text(Step):
     content = models.TextField(blank=True, default='')
 
     def get_absolute_url(self):
-        return reverse('courses:text',kwargs={
-            'course_pk': self.course_id,
-            'step_pk':self.id,
-        })
+        return reverse('courses:text', kwargs={
+                'course_pk': self.course_id,
+                'step_pk': self.id
+            })
+
 
 class Quiz(Step):
     total_questions = models.IntegerField(default=4)
 
     class Meta:
-        verbose_name_plural='Quizzes'
+        verbose_name_plural = "Quizzes"
 
     def get_absolute_url(self):
-        return reverse('courses:quiz',kwargs={
-            'course_pk': self.course_id,
-            'step_pk':self.id,
-        })
+        return reverse('courses:quiz', kwargs={
+                'course_pk': self.course_id,
+                'step_pk': self.id
+            })
+
 
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz)
@@ -60,10 +62,18 @@ class Question(models.Model):
     def __str__(self):
         return self.prompt
 
+class MultipleChoiceQuestion(Question):
+    shuffle_answers = models.BooleanField(default=False)
+
+
+class TrueFalseQuestion(Question):
+    pass
+
+
 class Answer(models.Model):
     question = models.ForeignKey(Question)
-    text = models.CharField(max_length=255)
     order = models.IntegerField(default=0)
+    text = models.CharField(max_length=255)
     correct = models.BooleanField(default=False)
 
     class Meta:
@@ -71,10 +81,3 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.text
-
-class MultipleChoiceQuestion(Question):
-    shuffle_answers = models.BooleanField(default=False)
-
-
-class TrueFalseQuestion(Question):
-    correct = models.BooleanField(default=False)

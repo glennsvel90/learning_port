@@ -10,20 +10,33 @@ class QuizForm(forms.ModelForm):
             'title',
             'description',
             'order',
-            'total_questions'
+            'total_questions',
         ]
 
-class TrueFalseQuestionForm(forms.ModelForm):
+
+
+class QuestionForm(forms.ModelForm):
+    class Media:
+        pass
+
+
+class TrueFalseQuestionForm(QuestionForm):
     class Meta:
         model = models.TrueFalseQuestion
-        fields = ['order', 'prompt','correct']
-        #put correct soon as new feature
+        fields = ['order', 'prompt']
 
-class MultipleChoiceQuestionForm(forms.ModelForm):
+
+class MultipleChoiceQuestionForm(QuestionForm):
     class Meta:
         model = models.MultipleChoiceQuestion
         fields = [
-            'prompt',
             'order',
+            'prompt',
             'shuffle_answers'
         ]
+
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = models.Answer
+        fields = ['text', 'order', 'correct',]

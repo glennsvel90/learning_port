@@ -6,8 +6,9 @@ from django.shortcuts import render
 
 from . import forms
 
+
 def hello_world(request):
-    return render (request, 'home.html')
+    return render(request, 'home.html')
 
 
 def suggestion_view(request):
@@ -16,11 +17,12 @@ def suggestion_view(request):
         form = forms.SuggestionForm(request.POST)
         if form.is_valid():
             send_mail(
-                'suggestion from {}'.format(form.cleaned_data['name']),
+                'Suggestion from {}'.format(form.cleaned_data['name']),
                 form.cleaned_data['suggestion'],
                 '{name} <{email}>'.format(**form.cleaned_data),
-                ['glennselwynvel@gmail.com']              
+                ['kenneth@teamtreehouse.com']
             )
-            messages.add_message(request, messages.SUCCESS, 'Thanks for your suggestion!')
-            return HttpResponseRedirect(reverse('suggestion_view'))
-    return render(request, 'suggestion_form.html', {'form':form})
+            messages.add_message(request, messages.SUCCESS,
+                                 'Thanks for your suggestion!')
+            return HttpResponseRedirect(reverse('suggestion'))
+    return render(request, 'suggestion_form.html', {'form': form})
