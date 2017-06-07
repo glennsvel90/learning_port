@@ -14,19 +14,13 @@ class QuizForm(forms.ModelForm):
         ]
 
 
-
-class QuestionForm(forms.ModelForm):
-    class Media:
-        pass
-
-
-class TrueFalseQuestionForm(QuestionForm):
+class TrueFalseQuestionForm(forms.ModelForm):
     class Meta:
         model = models.TrueFalseQuestion
         fields = ['order', 'prompt']
 
 
-class MultipleChoiceQuestionForm(QuestionForm):
+class MultipleChoiceQuestionForm(forms.ModelForm):
     class Meta:
         model = models.MultipleChoiceQuestion
         fields = [
@@ -39,4 +33,8 @@ class MultipleChoiceQuestionForm(QuestionForm):
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = models.Answer
-        fields = ['text', 'order', 'correct',]
+        fields = [
+            'order',
+            'text',
+            'correct'
+        ]
