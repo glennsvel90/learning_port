@@ -6,6 +6,11 @@
     <div class="row columns">
         {{ block.super }}
     </div>
+    <div class= "row columns">
+      <p>
+        Total Number of Steps: {{ total.total }}
+      </p>
+    </div>
     <div class="row">
         {%  for course in courses %}
             <div class="small-6 columns">
@@ -13,6 +18,11 @@
                     <h5><a href="{% url 'courses:detail' pk=course.pk %}">{{ course.title }}</a></h5>
                     <div class="card-copy">
                         {{ course.description }}
+                        {% if course.total_steps %}
+                            <p>
+                              <strong>Steps: </strong>{{ course.total_steps }}
+                            </p>
+                        {% endif %}
                     </div>
                 </div>
             </div>

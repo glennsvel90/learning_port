@@ -15,10 +15,17 @@
 
             <dl>
                 {% for step in steps %}
-                    <dt>
-                        <a href="{{ step.get_absolute_url }}">{{ step.title }}</a>
-                    </dt>
-                    <dd>{{ step.description|markdown_to_html }}</dd>
+                    {% if step.question_set.all %}
+                        <dt>
+                            <a href="{{ step.get_absolute_url }}">Quiz: {{ step.title }} </a>
+                        </dt>
+                        <dd> Total Questions: {{ step.question_set.count }}{{ step.description|markdown_to_html }}</dd>
+                    {% else %}
+                        <dt>
+                            <a href="{{ step.get_absolute_url }}">{{ step.title }}</a>
+                        </dt>
+                        <dd>{{ step.description|markdown_to_html }}</dd>
+                    {% endif %}
                 {% endfor %}
             </dl>
         </article>
