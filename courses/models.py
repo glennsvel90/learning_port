@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.contrib import admin
 from django.db import models
 
 from django.contrib.auth.models import User
@@ -10,9 +11,18 @@ class Course(models.Model):
     teacher = models.ForeignKey(User)
     subject = models.CharField(default='', max_length=100)
     published = models.BooleanField(default=False)
+    is_live = models.BooleanField(default=False)
+
 
     def __str__(self):
         return self.title
+
+    def time_to_complete(self):
+        from courses.templatetags.course_extras import time_estimate
+        return '{} min.'.format(time_estimate(len(self.description.split())))
+
+
+
 
 
 class Step(models.Model):
