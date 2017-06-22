@@ -12,6 +12,15 @@ class Course(models.Model):
     subject = models.CharField(default='', max_length=100)
     published = models.BooleanField(default=False)
     is_live = models.BooleanField(default=False)
+    url = models.URLField(unique=True)
+    # For "url" field after adding default to the model option 2 You are trying to add a non-nullable field 'url' to course without a default; we can't do that (the database needs something to populate existing rows).
+# Please select a fix:
+#  1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+#  2) Quit, and let me add a default in models.py
+# Select an option: 2
+# below:   return Database.Cursor.execute(self, query, params)
+#django.db.utils.IntegrityError: UNIQUE constraint failed: courses_course.url
+
 
 
     def __str__(self):
@@ -22,7 +31,19 @@ class Course(models.Model):
         return '{} min.'.format(time_estimate(len(self.description.split())))
 
 
+class Review(models.Model):
+    name = models.CharField(max_length=255)
+    course = models.ForeignKey(Course, related_name='review')
+    rating = models.IntegerField()
+    email = models.EmailField()
+    comment = models.TextField(blank=True, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ['email', 'course']
+
+    def __str__(self):
+        return '{0.rating} by {0.email} for {0.course}'.format(self)
 
 
 class Step(models.Model):
