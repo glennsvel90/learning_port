@@ -1,29 +1,31 @@
-from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer
 
-from . import models
+from courses.models import Course, Review
 
-class CourseSerializer(serializers.ModelSerializer):
+class CourseSerializer(ModelSerializer):
     class Meta:
+        model = Course
         fields = (
             'id',
             'title',
             'url',
         )
-        model = models.Course
+        # model = models.Course
 
 
-class ReviewSerializer(serializers.ModelSerializer):
+class ReviewSerializer(ModelSerializer):
     class Meta:
         extra_kwargs = {
             'email': {'write_only':True}
         }
+        model = Review
         fields = (
             'id',
             'course',
             'name',
             'email',
-            'review',
+            'comment',
             'rating',
             'created_at',
         )
-        model = models.Review
+        # model = models.Review

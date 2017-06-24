@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^$', views.hello_world, name='home'),
     url(r'^__debug__/', include(debug_toolbar.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/v1/courses/', include('courses.urls', namespace='api')),
+    url(r'^api/v1/courses/', include('courses.api.urls', namespace='courses-api')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

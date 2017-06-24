@@ -85,6 +85,7 @@ class TextAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Course, CourseAdmin)
+admin.site.register(models.Review)
 admin.site.register(models.Text)
 admin.site.register(models.Quiz, QuizAdmin)
 admin.site.register(models.MultipleChoiceQuestion, QuestionAdmin)

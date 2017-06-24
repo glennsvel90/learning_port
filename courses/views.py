@@ -10,7 +10,7 @@ from rest_framework.response import Response
 
 from . import forms
 from . import models
-from . import serializers
+# from . import serializers
 
 
 def course_list(request):
@@ -216,17 +216,9 @@ def search(request):
         total_steps=Count('text', distinct=True)+Count('quiz', distinct=True)
     )
     return render(request, 'courses/course_list.html', {'courses':courses})
-
-
-
-
-# API views
-
-class ListCourse(APIView):
-    def get(self, request, format=None):
-        # courses = models.Course.objects.all()
-        # serializer = serializers.CourseSerializer(courses, many=True)
-        # return Response(serializer.data)
-        pass
-
-
+#
+# class ListCourse(APIView):
+#     def get(self, request, format=None):
+#         courses = models.Course.objects.all()
+#         serializer = serializers.CourseSerializer(courses, many=True)
+#         return Response(serializer.data)
