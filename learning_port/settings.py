@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django.contrib.humanize',
     'rest_framework',
+    'rest_framework.authtoken',
     'courses',
 ]
 
@@ -139,9 +140,19 @@ INTERNAL_IPS = ['127.0.0.1', '::1', '0.0.0.0']
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    )
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5,
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '5/minute',
+        'user': '10/minute'
+    }
 }

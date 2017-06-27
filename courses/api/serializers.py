@@ -1,19 +1,12 @@
-from rest_framework.serializers import ModelSerializer
 
+from django.db.models import Avg
 from courses.models import Course, Review
 
-class CourseSerializer(ModelSerializer):
-    class Meta:
-        model = Course
-        fields = (
-            'id',
-            'title',
-            'url',
-        )
-        # model = models.Course
+from rest_framework import serializers
 
 
-class ReviewSerializer(ModelSerializer):
+
+class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         extra_kwargs = {
             'email': {'write_only':True}
@@ -28,4 +21,33 @@ class ReviewSerializer(ModelSerializer):
             'rating',
             'created_at',
         )
-        # model = models.Review
+    def validate_rating(self, value):
+        if value in range(1,6):
+            return value
+        raise serializers.ValidationError(
+            'rating has to be between 1 and 5')
+
+
+class CourseSerializer(serializers.ModelSerializer):
+    reviews = serializers.PrimaryKeyRelatedField(
+        many = True,
+        read_only = True,
+    )
+    average_rating = serializers.SerializerMethodField()
+    class Meta:
+        model = Course
+        fields = (
+            'id',
+            'title',
+            'url',
+            'reviews',
+            'average_rating',
+        )
+        # model = models.Course
+    def get_average_rating(self, obj):
+        average = obj.reviews.aggregate(Avg('rating')).get('rating__avg')
+
+        if average is None:
+            return 0
+
+        return round(average*2) / 2
