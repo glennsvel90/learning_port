@@ -36,6 +36,8 @@ if settings.DEBUG:
 urlpatterns = [
     url(r'^courses/', include('courses.urls', namespace='courses')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/',include('accounts.urls', namespace='accounts')),
+    # url(r'^accounts/',include('django.contrib.auth.urls')),   
     url(r'^suggest/$', views.suggestion_view, name='suggestion'),
     url(r'^$', views.hello_world, name='home'),
     url(r'^__debug__/', include(debug_toolbar.urls)),
