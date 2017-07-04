@@ -12,8 +12,8 @@ class Course(models.Model):
     subject = models.CharField(default='', max_length=100)
     published = models.BooleanField(default=False)
     is_live = models.BooleanField(default=False)
-    url = models.URLField(unique=True)
-    
+    url = models.URLField(unique=False)
+
 
     def __str__(self):
         return self.title
