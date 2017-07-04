@@ -17,8 +17,18 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+
+from rest_framework import routers
+
+from courses.api import views as apvi
 from . import views
 from . import settings
+
+
+router = routers.SimpleRouter()
+router.register(r'courses', apvi.CourseViewSet)
+router.register(r'reviews', apvi.ReviewViewSet)
+
 
 if settings.DEBUG:
     import debug_toolbar
@@ -26,10 +36,14 @@ if settings.DEBUG:
 urlpatterns = [
     url(r'^courses/', include('courses.urls', namespace='courses')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/',include('accounts.urls', namespace='accounts')),
+    # url(r'^accounts/',include('django.contrib.auth.urls')),   
     url(r'^suggest/$', views.suggestion_view, name='suggestion'),
     url(r'^$', views.hello_world, name='home'),
     url(r'^__debug__/', include(debug_toolbar.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/v1/courses/', include('courses.api.urls', namespace='courses-api')),
+    url(r'^api/v2/', include(router.urls, namespace='apiv2')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
- 

@@ -8,10 +8,11 @@ class Course(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
-    teacher = models.ForeignKey(User)
+    teacher = models.ForeignKey(User,null=True, blank=True )
     subject = models.CharField(default='', max_length=100)
     published = models.BooleanField(default=False)
     is_live = models.BooleanField(default=False)
+    url = models.URLField(unique=False)
 
 
     def __str__(self):
@@ -22,7 +23,19 @@ class Course(models.Model):
         return '{} min.'.format(time_estimate(len(self.description.split())))
 
 
+class Review(models.Model):
+    name = models.CharField(max_length=255)
+    course = models.ForeignKey(Course, related_name='reviews')
+    rating = models.IntegerField()
+    email = models.EmailField()
+    comment = models.TextField(blank=True, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ['email', 'course']
+
+    def __str__(self):
+        return '{0.rating} by {0.email} for {0.course}'.format(self)
 
 
 class Step(models.Model):

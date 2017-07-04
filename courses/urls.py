@@ -21,4 +21,8 @@ urlpatterns = [
     url(r'by/(?P<teacher>[-\w]+)/$', views.courses_by_teacher, name='by_teacher'),
     url(r'search/$', views.search, name='search'),
     url(r'(?P<pk>\d+)/$', views.course_detail, name='detail'),
+    #API urls
+    # url(r'^$', views.ListCourse.as_view(), name='course_list'),
+
+
 ]
