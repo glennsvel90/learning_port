@@ -25,7 +25,7 @@ SECRET_KEY = '*0l3qm9%vuyz959q#lo4&k_9x+#8+z6&z_y788ay7o8r8n&ltj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'0.0.0.0']
+ALLOWED_HOSTS = [u'0.0.0.0', '127.0.0.1']
 
 
 # Application definition
@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
     'debug_toolbar',
     'bootstrap3',
     'accounts',
@@ -160,3 +165,15 @@ REST_FRAMEWORK = {
 }
 
 LOGIN_REDIRECT_URL = "courses:list"
+
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = True
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION =True
