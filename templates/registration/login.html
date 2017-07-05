@@ -12,5 +12,9 @@
         {% bootstrap_form form %}
         <input type="submit" value="Login" class="btn btn-default">
     </form>
+
+    <p>
+      <a href="{% url 'password_reset' %}">Forgot your password?</a>
+    </p>
 </div>
 {% endblock %}

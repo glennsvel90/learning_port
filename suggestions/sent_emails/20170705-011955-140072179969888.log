@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Password reset on 0.0.0.0:8000
+From: webmaster@localhost
+To: glennselwynvel@gmail.com
+Date: Wed, 05 Jul 2017 05:19:55 -0000
+Message-ID: <20170705051955.21737.88493@userlin-Aspire-5745>
+
+
+You're receiving this email because you requested a password reset for your user account at 0.0.0.0:8000.
+
+Please go to the following page and choose a new password:
+
+http://0.0.0.0:8000/accounts/reset/MQ/4nh-ea74a66c551b0930f7da/
+
+Your username, in case you've forgotten: glennsv
+
+Thanks for using our site!
+
+The 0.0.0.0:8000 team
+
+
+
+-------------------------------------------------------------------------------
