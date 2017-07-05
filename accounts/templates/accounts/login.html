@@ -4,8 +4,8 @@
 
 {% block title %}Login | {{ block.super }} {% endblock title %}
 
-{% block body_content %}
-<div class="container">
+{% block content %}
+<div class="row">
     <h1>Login</h1>
     <form method="POST">
         {% csrf_token %}
