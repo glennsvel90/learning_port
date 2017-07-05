@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% load bootstrap3 %}
+
+
+{% block title %}Logged Out | {{ block.super }} {% endblock title %}
+
+{% block content %}
+<div class="row">
+    <h1>Logged out</h1>
+    <p>
+      Click <a href="{% url 'login' %}">here</a> to login again.
+    </p>
+
+</div>
+{% endblock %}

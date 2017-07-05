@@ -132,7 +132,7 @@ STATICFILES_DIRS = (
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'suggestions')
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'suggestions', 'sent_emails')
 
 INTERNAL_IPS = ['127.0.0.1', '::1', '0.0.0.0']
 
@@ -158,3 +158,5 @@ REST_FRAMEWORK = {
         'user': '10/minute'
     }
 }
+
+LOGIN_REDIRECT_URL = "courses:list"
