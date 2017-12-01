@@ -6,19 +6,9 @@ This web application is a potential place where people can learn software develo
 
 ### Prerequisites
 
-```
-Python 3
-```
+1. Python 3
+2. Django 1.8 or later
 
 ### Installing
 
 Clone the repository and unzip the contents. Open your computer terminal and change directory to be located inside the repository.
-
-It is recommended that you use a python 3 virtual environment.
-
-Type into the terminal:
-
-
-```
-pip install django
-```
