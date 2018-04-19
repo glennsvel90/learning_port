@@ -4,11 +4,20 @@ This web application is a potential place where people can learn software develo
 
 ## Getting Started
 
-### Prerequisites
+### Prerequisites/Modules Required
 
 1. Python 3
-2. Django 1.8 or later
+2. Django 2.0
+3. Django Debug Toolbar --> pip install django-debug-toolbar
+4. Markdown2  --> pip install markdown2
 
 ### Installing
 
 Clone the repository and unzip the contents. Open your computer terminal and change directory to be located inside the repository.
+
+### Running
+
+```
+python manage.py runserver 0.0.0.0:8000
+```
+Open a browser and connect to  site: 0.0.0.0:8000
