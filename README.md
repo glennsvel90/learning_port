@@ -21,3 +21,6 @@ Clone the repository and unzip the contents. Open your computer terminal and cha
 python manage.py runserver 0.0.0.0:8000
 ```
 Open a browser and connect to  site: 0.0.0.0:8000
+
+## Site Preview
+![alt text](https://github.com/glennsvel90/learning_port/blob/added_tf_button/website%20preview.PNG "site preview")
