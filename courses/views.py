@@ -11,7 +11,7 @@ from . import models
 
 
 def course_list(request):
-    """ Show the list of courses """
+    """ Show the list of courses in the whole app """
     
     courses = models.Course.objects.filter(
         published=True
@@ -56,6 +56,8 @@ def text_detail(request, course_pk, step_pk):
 
 
 def quiz_detail(request, course_pk, step_pk):
+    """ show the quiz detail for a given course """
+    
     try:
 
         step = models.Quiz.objects.select_related(
@@ -76,7 +78,7 @@ def quiz_detail(request, course_pk, step_pk):
 
 @login_required
 def quiz_create(request, course_pk):
-    """ Create a quiz """
+    """ Create a quiz for a given course"""
     
     course = get_object_or_404(models.Course,
                                pk=course_pk,
@@ -97,7 +99,7 @@ def quiz_create(request, course_pk):
 
 @login_required
 def quiz_edit(request, course_pk, quiz_pk):
-    """ Edit a quiz """
+    """ Edit a quiz for a given course """
     
     quiz = get_object_or_404(models.Quiz,
                              pk=quiz_pk,
