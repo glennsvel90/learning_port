@@ -11,6 +11,8 @@ from . import models
 
 
 def course_list(request):
+    """ Show the list of courses """
+    
     courses = models.Course.objects.filter(
         published=True
     ).annotate(
@@ -24,6 +26,8 @@ def course_list(request):
 
 
 def course_detail(request, pk):
+    """ Show the course detail for a given course """
+    
     try:
         course = models.Course.objects.prefetch_related(
             'quiz_set', 'text_set', 'quiz_set__question_set'
@@ -42,6 +46,8 @@ def course_detail(request, pk):
 
 
 def text_detail(request, course_pk, step_pk):
+    """ Show the text description detail for a given course """
+    
     step = get_object_or_404(models.Text,
                              course_id=course_pk,
                              pk=step_pk,
@@ -70,6 +76,8 @@ def quiz_detail(request, course_pk, step_pk):
 
 @login_required
 def quiz_create(request, course_pk):
+    """ Create a quiz """
+    
     course = get_object_or_404(models.Course,
                                pk=course_pk,
                                course__published=True)
@@ -89,6 +97,8 @@ def quiz_create(request, course_pk):
 
 @login_required
 def quiz_edit(request, course_pk, quiz_pk):
+    """ Edit a quiz """
+    
     quiz = get_object_or_404(models.Quiz,
                              pk=quiz_pk,
                              course_id=course_pk,
@@ -106,6 +116,8 @@ def quiz_edit(request, course_pk, quiz_pk):
 
 @login_required
 def create_question(request, quiz_pk, question_type):
+    """ Create a question """
+    
     quiz = get_object_or_404(models.Quiz, pk=quiz_pk)
     if question_type == 'tf':
         form_class = forms.TrueFalseQuestionForm
@@ -143,6 +155,8 @@ def create_question(request, quiz_pk, question_type):
 
 @login_required
 def edit_question(request, quiz_pk, question_pk):
+    """ Edit a question """
+    
     question = get_object_or_404(models.Question,
                                  pk=question_pk, quiz_id=quiz_pk)
     if hasattr(question, 'truefalsequestion'):
@@ -181,6 +195,8 @@ def edit_question(request, quiz_pk, question_pk):
 
 @login_required
 def answer_form(request, question_pk):
+    """ Show the answer section for a question """
+    
     question = get_object_or_404(models.Question, pk=question_pk)
 
     formset = forms.AnswerFormSet(queryset=question.answer_set.all())
@@ -201,10 +217,14 @@ def answer_form(request, question_pk):
     })
 
 def courses_by_teacher(request, teacher):
+    """ Show the courses taught by a spedific teacher """
+    
     courses = models.Course.objects.filter(teacher__username=teacher, published=True)
     return render(request, 'courses/course_list.html', {'courses': courses})
 
 def search(request):
+    """ Search the course catalogue by a keyword """
+    
     term = request.GET.get('q')
     courses = models.Course.objects.filter(
         Q(title__icontains=term)|Q(description__icontains=term),
