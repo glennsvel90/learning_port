@@ -5,6 +5,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Course(models.Model):
+    """ Create Course blueprint """
+    
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -18,6 +20,8 @@ class Course(models.Model):
         return self.title
 
     def time_to_complete(self):
+        """ Tell how long the course takes based on the description of the course """
+        
         from courses.templatetags.course_extras import time_estimate
         return '{} min.'.format(time_estimate(len(self.description.split())))
 
@@ -26,6 +30,8 @@ class Course(models.Model):
 
 
 class Step(models.Model):
+    """ Create sequence of passage steps to complete a course """
+    
     title = models.CharField(max_length=255)
     description = models.TextField()
     order = models.IntegerField(default=0)
@@ -40,6 +46,8 @@ class Step(models.Model):
 
 
 class Text(Step):
+    """ Create the text of the course as one of the steps to complete the course """
+    
     content = models.TextField(blank=True, default='')
 
     def get_absolute_url(self):
@@ -50,6 +58,9 @@ class Text(Step):
 
 
 class Quiz(Step):
+    """ Create a quiz as one of the steps to complete a coures """
+    
+    
     total_questions = models.IntegerField(default=4)
     times_taken = models.IntegerField(default=0, editable=False)
 
@@ -64,6 +75,8 @@ class Quiz(Step):
 
 
 class Question(models.Model):
+    """ Creates a question blueprint for a quiz """
+    
     quiz = models.ForeignKey(Quiz)
     order = models.IntegerField(default=0)
     prompt = models.TextField()
@@ -78,6 +91,8 @@ class Question(models.Model):
         return self.prompt
 
 class MultipleChoiceQuestion(Question):
+    """ Creates a multiple choice question as one of the question types """
+    
     shuffle_answers = models.BooleanField(default=False)
 
 
@@ -86,6 +101,8 @@ class TrueFalseQuestion(Question):
 
 
 class Answer(models.Model):
+    """ Creates the answer for one of the questions """
+    
     question = models.ForeignKey(Question)
     order = models.IntegerField(default=0)
     text = models.CharField(max_length=255)
