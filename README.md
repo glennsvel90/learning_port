@@ -7,7 +7,7 @@ This web application is a potential place where people can learn software develo
 ### Prerequisites/Modules Required
 
 1. Python 3
-2. Django 2.0
+2. Django 1.9
 3. Django Debug Toolbar --> pip install django-debug-toolbar
 4. Markdown2  --> pip install markdown2
 
