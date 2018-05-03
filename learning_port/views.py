@@ -12,6 +12,8 @@ def hello_world(request):
 
 
 def suggestion_view(request):
+    """ Make appear the suggestion page """
+    
     form = forms.SuggestionForm()
     if request.method == 'POST':
         form = forms.SuggestionForm(request.POST)
