@@ -8,6 +8,8 @@ def must_be_empty(value):
 
 
 class SuggestionForm(forms.Form):
+    """ Form for suggestions """
+    
     name = forms.CharField()
     email = forms.EmailField()
     verify_email = forms.EmailField(label="Please verify your email address")
@@ -19,6 +21,8 @@ class SuggestionForm(forms.Form):
                               )
     
     def clean(self):
+        """ process and clean up the input information """
+        
         cleaned_data = super().clean()
         email = cleaned_data.get('email')
         verify = cleaned_data.get('verify_email')
