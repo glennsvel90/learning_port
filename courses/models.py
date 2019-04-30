@@ -35,7 +35,7 @@ class Step(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     order = models.IntegerField(default=0)
-    course = models.ForeignKey(Course)
+    course = models.ForeignKey('Course', on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
@@ -77,7 +77,7 @@ class Quiz(Step):
 class Question(models.Model):
     """ Creates a question blueprint for a quiz """
 
-    quiz = models.ForeignKey(Quiz)
+    quiz = models.ForeignKey('Quiz', on_delete=models.CASCADE)
     order = models.IntegerField(default=0)
     prompt = models.TextField()
 
@@ -103,7 +103,7 @@ class TrueFalseQuestion(Question):
 class Answer(models.Model):
     """ Creates the answer for one of the questions """
 
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey('Question', on_delete=models.CASCADE)
     order = models.IntegerField(default=0)
     text = models.CharField(max_length=255)
     correct = models.BooleanField(default=False)
