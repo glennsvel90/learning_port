@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -13,7 +13,7 @@ def hello_world(request):
 
 def suggestion_view(request):
     """ Make appear the suggestion page """
-    
+
     form = forms.SuggestionForm()
     if request.method == 'POST':
         form = forms.SuggestionForm(request.POST)
