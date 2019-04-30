@@ -20,8 +20,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from . import views
 from . import settings
 
-if settings.DEBUG:
-    import debug_toolbar
+# if settings.DEBUG:
+#     import debug_toolbar
 
 urlpatterns = [
     url(r'^courses/', include('courses.urls', namespace='courses')),
@@ -32,4 +32,3 @@ urlpatterns = [
 ]
 
 urlpatterns += staticfiles_urlpatterns()
- 
