@@ -10,7 +10,7 @@ class Course(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
-    teacher = models.ForeignKey('User', on_delete=models.CASCADE)
+    teacher = models.ForeignKey('courses.Course', on_delete=models.CASCADE)
     subject = models.CharField(default='', max_length=100)
     published = models.BooleanField(default=False)
     is_live = models.BooleanField(default=False)
@@ -35,7 +35,7 @@ class Step(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     order = models.IntegerField(default=0)
-    course = models.ForeignKey('Course', on_delete=models.CASCADE)
+    course = models.ForeignKey('courses.Course', on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
