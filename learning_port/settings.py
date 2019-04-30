@@ -131,6 +131,13 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'suggestions')
 
 INTERNAL_IPS = ['127.0.0.1', '::1', '0.0.0.0']
+<<<<<<< 8ebd0e3460817857bec7a8a26944c4c75e4ca426
 # Configure Django App for Heroku.
 # import django_heroku
 # django_heroku.settings(locals())
+=======
+
+# Configure Django App for Heroku. 
+import django_heroku 
+django_heroku.settings(locals())
+>>>>>>> user
