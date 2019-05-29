@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 from django.utils import timezone
 
@@ -7,7 +7,7 @@ from . models import Course, Step
 # Create your tests here.
 class CourseModelTests(TestCase):
     """ Test if cousrse model is created """
-    
+
     def test_course_creation(self):
         course = Course.objects.create(
             title="Python Regular Expressions",
@@ -19,7 +19,7 @@ class CourseModelTests(TestCase):
 
 class StepModelTests(TestCase):
     """ Test if step model is created """
-    
+
     def setUp(self):
         self.course = Course.objects.create(
             title="Python Testing",
@@ -37,7 +37,7 @@ class StepModelTests(TestCase):
 
 class CourseViewsTests(TestCase):
     """ Test for course views features """
-    
+
     def setUp(self):
         self.course = Course.objects.create(
             title="Python Testing",
@@ -55,7 +55,7 @@ class CourseViewsTests(TestCase):
 
     def test_course_list_view(self):
         """ Test if pages for course list loads """
-        
+
         resp = self.client.get(reverse('courses:list'))
         self.assertEqual(resp.status_code, 200)
         self.assertIn(self.course, resp.context['courses'])
@@ -65,7 +65,7 @@ class CourseViewsTests(TestCase):
 
     def test_course_detail_view(self):
         """ Test if pages for course detail loads """
-        
+
         resp = self.client.get(reverse('courses:detail',
                                        kwargs = {'pk':self.course.pk}))
         self.assertEqual(resp.status_code, 200)
@@ -75,12 +75,10 @@ class CourseViewsTests(TestCase):
 
     def test_step_detail_view(self):
         """ Test if details of steps page loads """
-        
+
         resp = self.client.get(reverse('courses:step', kwargs={
                                         'course_pk': self.course.pk,
                                         'step_pk': self.step.pk}))
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(self.step, resp.context['step'])
         self.assertTemplateUsed(resp, 'courses/step_detail.html')
-        
-

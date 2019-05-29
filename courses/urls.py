@@ -2,6 +2,8 @@ from django.conf.urls import url
 
 from . import views
 
+app_name="courses"
+
 urlpatterns = [
     url(r'^$', views.course_list, name='list'),
     url(r'(?P<course_pk>\d+)/t(?P<step_pk>\d+)/$', views.text_detail,
