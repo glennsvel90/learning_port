@@ -37,13 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
+    # 'debug_toolbar',
     'django.contrib.humanize',
     'courses',
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -130,9 +130,4 @@ STATICFILES_DIRS = (
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'suggestions')
 
-INTERNAL_IPS = ['127.0.0.1', '::1', '0.0.0.0'
-# Configure Django App for Heroku.
-# import django_heroku
-# django_heroku.settings(locals())
-
-# Configure Django App for Heroku.
+INTERNAL_IPS = ['127.0.0.1', '::1', '0.0.0.0']

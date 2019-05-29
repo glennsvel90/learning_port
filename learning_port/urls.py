@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^suggest/$', views.suggestion_view, name='suggestion'),
     url(r'^$', views.hello_world, name='home'),
-    url(r'^__debug__/', include(debug_toolbar.urls)),
+    # url(r'^__debug__/', include(debug_toolbar.urls)),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
